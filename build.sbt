@@ -4,11 +4,9 @@ val MunitVersion = "1.1.0"
 val LogbackVersion = "1.5.16"
 val MunitCatsEffectVersion = "2.0.0"
 
-lazy val root = (project in file("."))
+lazy val receiptProcessor = (project in file("."))
   .settings(
-    organization := "io.github.matiasg239",
-    name := "receipt-processor",
-    version := "0.0.1-SNAPSHOT",
+    version := "0.0.1",
     scalaVersion := "3.3.3",
     libraryDependencies ++= Seq(
       "org.http4s" %% "http4s-ember-server" % Http4sVersion,
@@ -27,4 +25,7 @@ lazy val root = (project in file("."))
       case "module-info.class" => MergeStrategy.discard
       case x => (assembly / assemblyMergeStrategy).value.apply(x)
     }
-  )
+  ).enablePlugins(DockerPlugin, JavaAppPackaging)
+
+dockerBaseImage := "eclipse-temurin:23"
+dockerExposedPorts := Seq(8080)
