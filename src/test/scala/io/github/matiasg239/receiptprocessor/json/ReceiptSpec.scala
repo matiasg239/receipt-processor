@@ -162,11 +162,9 @@ class ReceiptSpec extends AnyFunSuite {
 
     assert(scoreReceipt(mostlyEmptyReceipt) == 0)
   }
-
-
+  
   // put it all together
   test("example test should score 28") {
     assert(scoreReceipt(filledValidReceipt) == 28)
   }
-
 }

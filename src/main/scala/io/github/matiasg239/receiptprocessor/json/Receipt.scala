@@ -12,10 +12,9 @@ case class Receipt(retailer: Option[String],
 
 
 object Receipt {
-  // Assumption: if any part of the receipt is malformed (not 0 points, but actually broken), the whole receipt scores 0.
-  // Rationale: if a single part is busted, we can't trust the veracity of any of it.
-  // we could also validate on inserting into the "DB" but having the data for busted receipts
-  // could be valuable itself (say if one person keeps coming up with them)
+  // if any part of the receipt is malformed, the score is 0. we can do this without worrying about
+  // valid receipts that score 0 because the minimum possible legitimate score is 1, since the retailer
+  // regex in api.yml specifies a "+"
   def scoreReceipt(receipt: Receipt): Int = {
     // this is a little involved for simple addition but the upshot is
     // if any result is None then the overall result will be None, which
